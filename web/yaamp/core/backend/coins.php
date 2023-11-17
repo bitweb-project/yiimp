@@ -122,7 +122,7 @@ function BackendCoinsUpdate()
 			if(strcasecmp($remote->error, 'method not found') == 0)
 				$coin->auxpow = false;
 			else
-				$coin->auxpow = true;
+				$coin->auxpow = false;
 		}
 
         // Change for segwit
