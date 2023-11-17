@@ -24,7 +24,7 @@ function updateRawcoins()
 
 	settings_prefetch_all();
 
-	// $markets_name = array('zyrex','p2pb2b','bitmesh','btc-alpha','tradeogre','bibox','bittrex','bitz','bleutrade','coinbene','crex24','poloniex','c-cex','yobit','coinexchange','coinsmarkets','cryptopia','cryptobridge','cryptrade','escodex','hitbtc','kraken','alcurex','binance','gateio','nova','stex','empoex','kucoin','livecoin','shapeshift','tradesatoshi','moondex');
+	// $markets_name = array('zyrex','p2pb2b','bitmesh','btc-alpha','tradeogre','bibox','bittrex','bitz','bleutrade','coinbene','crex24','poloniex','c-cex','yobit','coinexchange','coinsmarkets','cryptobridge','cryptrade','escodex','hitbtc','kraken','alcurex','binance','gateio','nova','stex','empoex','kucoin','livecoin','shapeshift','tradesatoshi','moondex');
 	$exchanges = getdbolist('db_balances');
 	foreach ($exchanges as $exchange) {
 		updateRawCoinExchange($exchange->name);
@@ -430,22 +430,6 @@ function updateRawCoinExchange($marketname)
 				}
 			}
 		break;
-		case 'cryptopia':
-			if (!exchange_get('cryptopia', 'disabled')) {
-				$list = cryptopia_api_query('GetMarkets');
-				if(isset($list->Data))
-				{
-					dborun("UPDATE markets SET deleted=true WHERE name='cryptopia'");
-					foreach($list->Data as $item) {
-						$e = explode('/', $item->Label);
-						if (strtoupper($e[1]) !== 'BTC')
-							continue;
-						$symbol = strtoupper($e[0]);
-						updateRawCoin('cryptopia', $symbol);
-					}
-				}
-			}
-		break;
 		case 'cryptobridge':
 			if (!exchange_get('cryptobridge', 'disabled')) {
 				$list = cryptobridge_api_query('ticker');
@@ -732,20 +716,6 @@ function updateRawCoin($marketname, $symbol, $name='unknown')
 	if(!$coin && YAAMP_CREATE_NEW_COINS)
 	{
 		$algo = '';
-		if ($marketname == 'cryptopia') {
-			// get coin label and algo (different api)
-			$labels = cryptopia_api_query('GetCurrencies');
-			if (is_object($labels) && !empty($labels->Data)) {
-				foreach ($labels->Data as $coin) {
-					if ($coin->Symbol == $symbol) {
-						$name = $coin->Name;
-						$algo = strtolower($coin->Algorithm);
-						if ($algo == 'scrypt') $algo = ''; // cryptopia default generally wrong
-						break;
-					}
-				}
-			}
-		}
 
 		if (in_array($marketname, array('nova','askcoin','binance','bitz','coinexchange','coinsmarkets','hitbtc'))) {
 			// don't polute too much the db with new coins, its better from exchanges with labels
