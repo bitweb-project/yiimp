@@ -127,6 +127,7 @@ $payout_freq = (YAAMP_PAYMENTS_FREQ / 3600) . " hours";
 
 <ul>
 <li>&lt;WALLET_ADDRESS&gt; must be valid for the currency you mine. <b>DO NOT USE a BTC address here, the auto exchange is disabled on these stratums</b>!</li>
+<li>&lt;WALLET_ADDRESS&gt; must start from E or web. <b>Please do not use address what start from D, there can problems with payouts</b>!</li>
 <!-- <li><b>Our stratums are now NiceHASH compatible and ASICBoost enabled, please message support if you have any issues.</b></li> -->
 <li>See the "<?=YAAMP_SITE_NAME?> coins" area on the right for PORT numbers. You may mine any coin regardless if the coin is enabled or not for autoexchange. Payouts will only be made in that coins currency.</li>
 <li>Payouts are made automatically every hour for all balances above <b><?=$min_payout?></b>, or <b><?=$min_sunday?></b> on Sunday.</li>
