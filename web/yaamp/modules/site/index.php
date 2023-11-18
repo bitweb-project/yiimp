@@ -174,7 +174,11 @@ endif;
     <li><a href="http://www.twitter.com"><img src='/images/Twitter.png' /></a></li>
     <li><a href="http://www.youtube.com"><img src='/images/YouTube.png' /></a></li>
     <li><a href="http://www.github.com"><img src='/images/Github.png' /></a></li> -->
-    <li><a href="https://discord.gg/DrsrWQh3qC"><img src='/images/discord.png' /></a></li>
+    <li><a href="https://discord.gg/jQdttwgsJa"><img src='/images/discord.png' /></a></li>
+    <li><a href="https://t.me/bitweb"><img src='/images/telegram.png' /></a></li> -->
+    <li><a href="https://t.me/bitweb_en"><img src='/images/telegram.png' /></a></li> -->
+    <li><a href="https://github.com/bitweb-project"><img src='/images/Github.png' /></a></li> -->
+    <li><a href="https://bitwebcore.net"><img src='/images/bitweb.png' /></a></li> -->
 </ul>
 
 </div></div><br>
