@@ -187,7 +187,7 @@ function yaamp_get_algo_norm($algo)
 		'x11'		=> 1.0,
 		'x13'		=> 1.0,
 		'argon2'	=> 1.0,
-		'argon2iddpc' => 1.0
+		'argon2iddpc' => 1.0,
 		'argon2d250'	=> 1.0,
 		'argon2d-dyn'	=> 1.0,
 		'argon2d4096'	=> 1.0,
