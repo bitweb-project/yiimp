@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "SHA512.h"
+#include "sha512.h"
 #include "config.h"
 
 // K: first 64 bits of the fractional parts of the cube roots of the first 80 primes
