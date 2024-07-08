@@ -18,7 +18,7 @@ void sha512_hash(const uint8_t *input, size_t input_len, uint8_t *output)
     sha512_final(&ctx, output);
 }
 
-void argon2iddpc_call(const void *input, void *output)
+void argon2iddpc_call(const unsigned char *input, unsigned char *output)
 {
     uint8_t salt_sha512_first[64];
     uint8_t salt_sha512_second[64];
@@ -26,7 +26,7 @@ void argon2iddpc_call(const void *input, void *output)
     uint8_t hash2[32];
 
     // First SHA-512 hash
-    sha512_hash((const uint8_t *)input, INPUT_BYTES, salt_sha512_first);
+    sha512_hash(input, INPUT_BYTES, salt_sha512_first);
 
     // Second SHA-512 hash
     sha512_hash(salt_sha512_first, 64, salt_sha512_second);
