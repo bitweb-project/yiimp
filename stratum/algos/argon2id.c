@@ -8,27 +8,33 @@
 #include "ar2id/blake2/blake2.h"
 #include "ar2id/sha512.h"
 
-#define SHA512_HASH_SIZE 64
-
 static const size_t INPUT_BYTES = 80;  // Length of a block header in bytes
+
+void sha512_hash(const uint8_t *input, size_t input_len, uint8_t *output)
+{
+    sha512_context ctx;
+    sha512_init(&ctx);
+    sha512_update(&ctx, input, input_len);
+    sha512_final(&ctx, output);
+}
 
 void argon2iddpc_call(const void *input, void *output)
 {
-    uint8_t salt_sha512_first[SHA512_HASH_SIZE];
-    uint8_t salt_sha512_second[SHA512_HASH_SIZE];
+    uint8_t salt_sha512_first[64];
+    uint8_t salt_sha512_second[64];
     uint8_t hash1[32];
     uint8_t hash2[32];
 
     // First SHA-512 hash
-    SHA512Hash((uint8_t *)input, salt_sha512_first);
+    sha512_hash((const uint8_t *)input, INPUT_BYTES, salt_sha512_first);
 
     // Second SHA-512 hash
-    SHA512Hash(salt_sha512_first, salt_sha512_second);
+    sha512_hash(salt_sha512_first, 64, salt_sha512_second);
 
     const void *pwd = input;
     size_t pwdlen = INPUT_BYTES;
     const void *salt = salt_sha512_second;
-    size_t saltlen = SHA512_HASH_SIZE;
+    size_t saltlen = 64;
 
     // Calling the first round of Argon2id
     int rc = argon2id_hash_raw(2, 4096, 2, pwd, pwdlen, salt, saltlen, hash1, 32);
@@ -48,7 +54,7 @@ void argon2iddpc_call(const void *input, void *output)
         exit(1);
     }
 
-    return hash2;
+    memcpy(output, hash2, 32);
 }
 
 void argon2iddpc_hash(const unsigned char *input, unsigned char *output, unsigned int len)
