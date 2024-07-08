@@ -6,7 +6,6 @@
 #include <string.h>
 
 #include "sha512.h"
-#include "config.h"
 
 // K: first 64 bits of the fractional parts of the cube roots of the first 80 primes
 const static uint64_t K[80] =
