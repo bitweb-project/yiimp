@@ -122,6 +122,7 @@ YAAMP_ALGO g_algos[] =
 	{"argon2d250", argon2d_crds_hash, 0x10000, 0, 0 }, // Credits Argon2d Implementation
 	{"argon2d500", argon2d_dyn_hash, 0x10000, 0, 0 }, // Dynamic Argon2d Implementation
 	{"argon2d16000", argon2d16000_hash, 0x10000, 0, 0 }, // Argon2d16000 Implementation
+	{"argon2iddpc", argon2iddpc_hash, 0x10000, 0, 0 }, // Argon2iddpc Implementation
 	{"astralhash", astralhash_hash, 0x100, 0, 0},
 	{"bastion", bastion_hash, 1, 0 },
 	{"bcd", bcd_hash, 1, 0, 0},
@@ -248,6 +249,8 @@ YAAMP_ALGO g_algos[] =
 	{"zr5", zr5_hash, 1, 0, 0},
 	{"", NULL, 0, 0},
 };
+
+//YAAMP_ALGO *g_first_algo = "yespowerDPC";
 
 YAAMP_ALGO *g_current_algo = NULL;
 

@@ -67,6 +67,7 @@ clean:
 	rm -f sha3/*.o
 	rm -f sha3/*.a
 	rm -f algos/ar2/*.o
+	rm -f algos/ar2id/*.o
 	rm -f algos/blake2/*.o
 	rm -f algos/blake2-ref/*.o
 	rm -f algos/honeycomb/*.o
