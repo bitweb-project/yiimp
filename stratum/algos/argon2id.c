@@ -4,7 +4,6 @@
 #include <string.h>
 
 #include "sysendian.h"
-
 #include "ar2id/argon2.h"
 #include "ar2id/blake2/blake2.h"
 #include "ar2id/sha512.h"
@@ -16,10 +15,19 @@ static const size_t INPUT_BYTES = 80;  // Length of a block header in bytes
 void argon2iddpc_call(const void *input, void *output)
 {
     uint8_t salt_sha512_first[SHA512_HASH_SIZE];
-    SHA512Hash((const unsigned char *)input, INPUT_BYTES, salt_sha512_first);
+    uint64_t *hash;
+
+    // First hash
+    hash = SHA512Hash((uint8_t *)input, INPUT_BYTES);
+    memcpy(salt_sha512_first, hash, SHA512_HASH_SIZE);
+    free(hash);
 
     uint8_t salt_sha512_second[SHA512_HASH_SIZE];
-    SHA512Hash(salt_sha512_first, SHA512_HASH_SIZE, salt_sha512_second);
+
+    // Second hash
+    hash = SHA512Hash(salt_sha512_first, SHA512_HASH_SIZE);
+    memcpy(salt_sha512_second, hash, SHA512_HASH_SIZE);
+    free(hash);
 
     const void *pwd = input;
     size_t pwdlen = INPUT_BYTES;
