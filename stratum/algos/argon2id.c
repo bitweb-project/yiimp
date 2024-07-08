@@ -48,7 +48,7 @@ void argon2iddpc_call(const void *input, void *output)
         exit(1);
     }
 
-    memcpy(output, hash2, 32);
+    return hash2;
 }
 
 void argon2iddpc_hash(const unsigned char *input, unsigned char *output, unsigned int len)
