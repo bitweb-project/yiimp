@@ -31,24 +31,15 @@ void argon2iddpc_call(const unsigned char *input, unsigned char *output)
     // Second SHA-512 hash
     sha512_hash(salt_sha512_first, 64, salt_sha512_second);
 
-    const void *pwd = input;
-    size_t pwdlen = INPUT_BYTES;
-    const void *salt = salt_sha512_second;
-    size_t saltlen = 64;
-
     // Calling the first round of Argon2id
-    int rc = argon2id_hash_raw(2, 4096, 2, pwd, pwdlen, salt, saltlen, hash1, 32);
+    int rc = argon2id_hash_raw(2, 4096, 2, input, INPUT_BYTES, salt_sha512_second, 64, hash1, 32);
     if (rc != ARGON2_OK) {
         printf("Error: Failed to compute Argon2id hash for the first round\n");
         exit(1);
     }
 
     // Using the result of the first round as salt for the second round
-    salt = hash1;
-    saltlen = 32;
-
-    // Calling the second round of Argon2id
-    rc = argon2id_hash_raw(2, 32768, 2, pwd, pwdlen, salt, saltlen, hash2, 32);
+    rc = argon2id_hash_raw(2, 32768, 2, input, INPUT_BYTES, hash1, 32, hash2, 32);
     if (rc != ARGON2_OK) {
         printf("Error: Failed to compute Argon2id hash for the second round\n");
         exit(1);
